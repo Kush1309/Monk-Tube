@@ -12,7 +12,7 @@ const VideoDetails = () => {
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
+
   // Modal & toggle states
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -22,7 +22,7 @@ const VideoDetails = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await api.get(`/videos/${videoId}`);
+      const response = await api.get(`/users/videos/${videoId}`);
       if (response.data?.success) {
         setVideo(response.data.data);
       } else {
@@ -43,7 +43,7 @@ const VideoDetails = () => {
   const handleDelete = async () => {
     setDeleting(true);
     try {
-      const response = await api.delete(`/videos/${videoId}`);
+      const response = await api.delete(`/users/videos/${videoId}`);
       if (response.data?.success) {
         setShowDeleteModal(false);
         navigate('/dashboard');
@@ -62,7 +62,7 @@ const VideoDetails = () => {
     if (toggling) return;
     setToggling(true);
     try {
-      const response = await api.patch(`/videos/${videoId}/toggle-publish`);
+      const response = await api.patch(`/users/videos/${videoId}/toggle-publish`);
       if (response.data?.success) {
         setVideo((prev) => ({
           ...prev,
@@ -139,11 +139,10 @@ const VideoDetails = () => {
             <button
               onClick={handleTogglePublish}
               disabled={toggling}
-              className={`text-xs font-semibold px-3.5 py-2 rounded shadow-sm border transition-all cursor-pointer ${
-                video.isPublished
+              className={`text-xs font-semibold px-3.5 py-2 rounded shadow-sm border transition-all cursor-pointer ${video.isPublished
                   ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100'
                   : 'bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100'
-              }`}
+                }`}
             >
               Status: {video.isPublished ? 'Published' : 'Unpublished'}
             </button>

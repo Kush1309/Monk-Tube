@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const response = await api.get('/current-user');
+      const response = await api.get('/users/current-user');
       if (response.data?.success && response.data?.data) {
         setUser(response.data.data);
       } else {
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await api.post('/login', { email, password });
+      const response = await api.post('/users/login', { email, password });
       if (response.data?.success && response.data?.data) {
         const { accessToken, refreshToken, user: userData } = response.data.data;
         localStorage.setItem('accessToken', accessToken);
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       // Call backend logout endpoint (ignores failure to ensure local state is cleared anyway)
-      await api.post('/logout');
+      await api.post('/users/logout');
     } catch (error) {
       console.error('Logout request failed:', error);
     } finally {

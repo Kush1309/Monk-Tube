@@ -23,7 +23,7 @@ const Dashboard = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await api.get('/videos', {
+      const response = await api.get('/users/videos', {
         params: { query: debouncedQuery },
       });
       if (response.data?.success) {
@@ -46,7 +46,7 @@ const Dashboard = () => {
   // ── Delete handler: remove from list after confirmed API call ──
   const handleDelete = async (videoId) => {
     try {
-      const response = await api.delete(`/videos/${videoId}`);
+      const response = await api.delete(`/users/videos/${videoId}`);
       if (response.data?.success) {
         setVideos((prev) => prev.filter((v) => v._id !== videoId));
       } else {
@@ -61,7 +61,7 @@ const Dashboard = () => {
   // ── Toggle publish handler: flip isPublished in local state ──
   const handleTogglePublish = async (videoId, currentState) => {
     try {
-      const response = await api.patch(`/videos/${videoId}/toggle-publish`);
+      const response = await api.patch(`/users/videos/${videoId}/toggle-publish`);
       if (response.data?.success) {
         setVideos((prev) =>
           prev.map((v) =>

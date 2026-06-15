@@ -46,7 +46,7 @@ const EditVideo = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await api.get(`/videos/${videoId}`);
+      const response = await api.get(`/users/videos/${videoId}`);
       if (response.data?.success) {
         const video = response.data.data;
         // Verify owner access — use String() to avoid ObjectId vs string type mismatch
@@ -101,7 +101,7 @@ const EditVideo = () => {
         formData.append('thumbnail', thumbnail);
       }
 
-      const response = await api.patch(`/videos/${videoId}`, formData, {
+      const response = await api.patch(`/users/videos/${videoId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

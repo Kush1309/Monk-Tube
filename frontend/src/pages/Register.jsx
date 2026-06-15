@@ -67,7 +67,7 @@ const Register = () => {
 
     setLoading(true);
     try {
-      const response = await api.post('/register', formData, {
+      const response = await api.post('/users/register', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
